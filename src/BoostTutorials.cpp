@@ -14,6 +14,7 @@
 #include "tutorials/include/TutorialOne.h"
 #include "tutorials/include/TutorialTwo.h"
 #include "tutorials/include/TutorialThree.h"
+#include "tutorials/include/TutorialFour.h"
 
 using namespace std;
 
@@ -24,8 +25,11 @@ int main() {
 	TutorialTwo *T2 = new TutorialTwo();
 	T2->Execute();
 
-	TutorialThree *T3 = new TutorialThree(5, 1);
+	TutorialThree *T3 = new TutorialThree(2, 1);
 	T3->Execute();
+
+	TutorialFour *T4 = new TutorialFour(3, 1);
+	T4->Execute();
 
 	return 0;
 }
