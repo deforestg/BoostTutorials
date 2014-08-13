@@ -16,7 +16,7 @@ TutorialFour::TutorialFour(int countTo, int interval)
 	this->countTo = countTo;
 	this->interval = interval;
 	count = 0;
-	t = new boost::asio::deadline_timer(io, boost::posix_time::seconds(interval));
+	t = new boost::asio::deadline_timer(io, boost::posix_time::seconds(this->interval));
 }
 
 void TutorialFour::bindWait()
