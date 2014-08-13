@@ -11,15 +11,16 @@
 #include <boost/bind.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include "tutorials/include/TutorialOne.h"
-#include "tutorials/include/TutorialTwo.h"
-#include "tutorials/include/TutorialThree.h"
-#include "tutorials/include/TutorialFour.h"
-#include "tutorials/include/TutorialFive.h"
+#include "tutorials/timers/include/TutorialOne.h"
+#include "tutorials/timers/include/TutorialTwo.h"
+#include "tutorials/timers/include/TutorialThree.h"
+#include "tutorials/timers/include/TutorialFour.h"
+#include "tutorials/timers/include/TutorialFive.h"
 
 using namespace std;
 
-int main() {
+void runTheTimers()
+{
 	TutorialOne *T1 = new TutorialOne();
 	T1->Execute();
 
@@ -29,11 +30,15 @@ int main() {
 	TutorialThree *T3 = new TutorialThree(2, 1);
 	T3->Execute();
 
-	TutorialFour *T4 = new TutorialFour(3, 1);
+	TutorialFour *T4 = new TutorialFour(2, 1);
 	T4->Execute();
 
 	TutorialFive *T5 = new TutorialFive(20, 2, 4);
 	T5->Execute();
+}
 
+int main()
+{
+	runTheTimers();
 	return 0;
 }
