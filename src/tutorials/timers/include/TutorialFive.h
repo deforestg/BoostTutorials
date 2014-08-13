@@ -5,6 +5,13 @@
  *      Author: gdeforest
  */
 
+#include <iostream>
+#include <vector>
+#include <boost/asio.hpp>
+#include <boost/thread/thread.hpp>
+#include <boost/bind.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+
 #ifndef TUTORIALFIVE_H_
 #define TUTORIALFIVE_H_
 

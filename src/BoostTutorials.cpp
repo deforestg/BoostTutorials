@@ -6,18 +6,13 @@
 // Description : Boost tutorials in C++, Ansi-style
 //============================================================================
 
-#include <iostream>
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-
 #include "tutorials/timers/include/TutorialOne.h"
 #include "tutorials/timers/include/TutorialTwo.h"
 #include "tutorials/timers/include/TutorialThree.h"
 #include "tutorials/timers/include/TutorialFour.h"
 #include "tutorials/timers/include/TutorialFive.h"
 
-using namespace std;
+#include "tutorials/sockets/include/DaytimeOne.h"
 
 void runTheTimers()
 {
@@ -37,8 +32,17 @@ void runTheTimers()
 	T5->Execute();
 }
 
+void runTheDaytimes()
+{
+	DaytimeOne *D1 = new DaytimeOne();
+	D1->Execute();
+}
+
 int main()
 {
-	runTheTimers();
+//	runTheTimers();
+
+	runTheDaytimes();
+
 	return 0;
 }
