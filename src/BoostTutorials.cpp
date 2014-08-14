@@ -35,7 +35,7 @@ void runTheTimers()
 void runTheDaytimes()
 {
 	DaytimeOne *D1 = new DaytimeOne();
-	D1->Execute();
+	D1->Execute((const std::string&)"nist1-nj2.ustiming.org");
 }
 
 int main()

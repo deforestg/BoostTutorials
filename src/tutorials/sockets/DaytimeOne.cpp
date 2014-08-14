@@ -12,11 +12,11 @@ DaytimeOne::DaytimeOne()
 	resolver = new tcp::resolver(ioService);
 }
 
-void DaytimeOne::Execute()
+void DaytimeOne::Execute(const std::string& endpoint)
 {
 	try
 	{
-		tcp::resolver::query query("nist1-nj2.ustiming.org", "daytime");
+		tcp::resolver::query query(endpoint, "daytime");
 		tcp::resolver::iterator endpoint_iterator = resolver->resolve(query);
 
 		tcp::socket socket(ioService);

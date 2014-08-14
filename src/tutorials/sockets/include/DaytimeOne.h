@@ -24,7 +24,7 @@ class DaytimeOne
 		tcp::resolver *resolver;
 	public:
 		DaytimeOne();
-		void Execute();
+		void Execute(const std::string& endpoint);
 };
 
 
