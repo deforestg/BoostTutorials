@@ -12,7 +12,8 @@
 #include "tutorials/timers/include/TutorialFour.h"
 #include "tutorials/timers/include/TutorialFive.h"
 
-#include "tutorials/sockets/include/DaytimeOne.h"
+#include "tutorials/sockets/include/DaytimeClient.h"
+#include "tutorials/sockets/include/DaytimeServer.h"
 
 void runTheTimers()
 {
@@ -34,8 +35,15 @@ void runTheTimers()
 
 void runTheDaytimes()
 {
-	DaytimeOne *D1 = new DaytimeOne();
-	D1->Execute((const std::string&)"nist1-nj2.ustiming.org");
+    pid_t pid = fork();
+
+    if (pid == 0) {
+    	DaytimeServer *server = new DaytimeServer();
+    	server->Start();
+    } else {
+    	DaytimeClient *client = new DaytimeClient();
+    	client->Execute((const std::string&)"127.0.1.1");
+    }
 }
 
 int main()

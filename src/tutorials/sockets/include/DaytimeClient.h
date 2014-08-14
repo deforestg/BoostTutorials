@@ -1,5 +1,5 @@
 /*
- * DaytimeOne.h
+ * DaytimeClient.h
  *
  *  Created on: Aug 12, 2014
  *      Author: gdeforest
@@ -14,18 +14,18 @@
 using namespace std;
 using boost::asio::ip::tcp;
 
-#ifndef DAYTIMEONE_H_
-#define DAYTIMEONE_H_
+#ifndef DAYTIMECLIENT_H_
+#define DAYTIMECLIENT_H_
 
-class DaytimeOne
+class DaytimeClient
 {
 	private:
 		boost::asio::io_service ioService;
 		tcp::resolver *resolver;
 	public:
-		DaytimeOne();
+		DaytimeClient();
 		void Execute(const std::string& endpoint);
 };
 
 
-#endif /* DAYTIMEONE_H_ */
+#endif /* DAYTIMECLIENT_H_ */

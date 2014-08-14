@@ -1,18 +1,18 @@
 /*
- * DaytimeOne.cpp
+ * DaytimeClient.cpp
  *
  *  Created on: Aug 12, 2014
  *      Author: gdeforest
  */
 
-#include "include/DaytimeOne.h"
+#include "include/DaytimeClient.h"
 
-DaytimeOne::DaytimeOne()
+DaytimeClient::DaytimeClient()
 {
 	resolver = new tcp::resolver(ioService);
 }
 
-void DaytimeOne::Execute(const std::string& endpoint)
+void DaytimeClient::Execute(const std::string& endpoint)
 {
 	try
 	{
