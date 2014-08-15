@@ -1,24 +1,24 @@
 /*
- * DaytimeServerTcp.cpp
+ * DaytimeServerUdp.cpp
  *
  *  Created on: Aug 14, 2014
  *      Author: gdeforest
  */
 
-#include "include/DaytimeServerTcp.h"
+#include "include/DaytimeServerUdp.h"
 
-DaytimeServerTcp::DaytimeServerTcp()
+DaytimeServerUdp::DaytimeServerUdp()
 {
 	acceptor = new tcp::acceptor(ioService, tcp::endpoint(tcp::v4(), 13));
 }
 
-std::string DaytimeServerTcp::makeDaytimeString()
+std::string DaytimeServerUdp::makeDaytimeString()
 {
 	time_t now = time(0);
 	return ctime(&now);
 }
 
-void DaytimeServerTcp::Start()
+void DaytimeServerUdp::Start()
 {
 	try
 	{

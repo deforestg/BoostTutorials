@@ -13,6 +13,7 @@
 #include "tutorials/timers/include/TutorialFive.h"
 
 #include "tutorials/sockets/include/DaytimeClient.h"
+#include "tutorials/sockets/include/DaytimeClientUdp.h"
 #include "tutorials/sockets/include/DaytimeServerTcp.h"
 #include "tutorials/sockets/include/TcpServer.h"
 
@@ -83,8 +84,10 @@ int main()
 {
 //	runTheTimers();
 //	runDaytimeTcp()
+//	runDaytimeTcpAsync();
 
-	runDaytimeTcpAsync();
+	DaytimeClientUdp *client = new DaytimeClientUdp();
+	client->Execute((const std::string&)"wwv.nist.gov");
 
 	return 0;
 }
