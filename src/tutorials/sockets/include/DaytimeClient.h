@@ -22,8 +22,10 @@ class DaytimeClient
 	private:
 		boost::asio::io_service ioService;
 		tcp::resolver *resolver;
+		int id;
 	public:
 		DaytimeClient();
+		DaytimeClient(int id);
 		void Execute(const std::string& endpoint);
 };
 

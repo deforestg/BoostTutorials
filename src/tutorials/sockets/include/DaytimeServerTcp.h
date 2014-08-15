@@ -1,5 +1,5 @@
 /*
- * DaytimeServer.h
+ * DaytimeServerTcp.h
  *
  *  Created on: Aug 13, 2014
  *      Author: gdeforest
@@ -13,19 +13,19 @@
 using namespace std;
 using boost::asio::ip::tcp;
 
-#ifndef DAYTIMESERVER_H_
-#define DAYTIMESERVER_H_
+#ifndef DAYTIMESERVERTCP_H_
+#define DAYTIMESERVERTCP_H_
 
-class DaytimeServer
+class DaytimeServerTcp
 {
 	private:
 		boost::asio::io_service ioService;
 		tcp::acceptor* acceptor;
 		std::string makeDaytimeString();
 	public:
-		DaytimeServer();
+		DaytimeServerTcp();
 		void Start();
 };
 
 
-#endif /* DAYTIMESERVER_H_ */
+#endif /* DAYTIMESERVERTCP_H_ */

@@ -9,6 +9,13 @@
 
 DaytimeClient::DaytimeClient()
 {
+	id = -1;
+	resolver = new tcp::resolver(ioService);
+}
+
+DaytimeClient::DaytimeClient(int id)
+{
+	this->id = id;
 	resolver = new tcp::resolver(ioService);
 }
 
@@ -35,6 +42,7 @@ void DaytimeClient::Execute(const std::string& endpoint)
 				throw boost::system::system_error(error); // Some other error.
 			}
 
+			std::cout << "Client " << id << ":  ";
 			std::cout.write(buf.data(), len);
 		}
 	} catch (std::exception& e) {

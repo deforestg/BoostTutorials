@@ -13,7 +13,8 @@
 #include "tutorials/timers/include/TutorialFive.h"
 
 #include "tutorials/sockets/include/DaytimeClient.h"
-#include "tutorials/sockets/include/DaytimeServer.h"
+#include "tutorials/sockets/include/DaytimeServerTcp.h"
+#include "tutorials/sockets/include/TcpServer.h"
 
 void runTheTimers()
 {
@@ -33,12 +34,12 @@ void runTheTimers()
 	T5->Execute();
 }
 
-void runTheDaytimes()
+void runDaytimeTcp()
 {
     pid_t pid = fork();
 
     if (pid == 0) {
-    	DaytimeServer *server = new DaytimeServer();
+    	DaytimeServerTcp *server = new DaytimeServerTcp();
     	server->Start();
     } else {
     	DaytimeClient *client = new DaytimeClient();
@@ -46,11 +47,44 @@ void runTheDaytimes()
     }
 }
 
+void runDaytimeTcpAsync()
+{
+    pid_t pid = fork();
+
+    if (pid == 0) {
+		try
+		{
+			boost::asio::io_service ioService;
+			TcpServer server(ioService);
+			ioService.run();
+		}
+		catch (std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+    } else {
+        pid_t pid = fork();
+
+        if (pid == 0) {
+        	DaytimeClient *client = new DaytimeClient(1);
+        	for (;;) {
+            	client->Execute((const std::string&)"127.0.1.1");
+        	}
+        } else {
+        	DaytimeClient *client = new DaytimeClient(2);
+        	for (;;) {
+            	client->Execute((const std::string&)"127.0.1.1");
+        	}
+        }
+    }
+}
+
 int main()
 {
 //	runTheTimers();
+//	runDaytimeTcp()
 
-	runTheDaytimes();
+	runDaytimeTcpAsync();
 
 	return 0;
 }
