@@ -17,6 +17,7 @@
 #include "tutorials/sockets/include/DaytimeServerTcp.h"
 #include "tutorials/sockets/include/DaytimeServerUdp.h"
 #include "tutorials/sockets/include/TcpServer.h"
+#include "tutorials/sockets/include/UdpServer.h"
 
 void runTheTimers()
 {
@@ -94,13 +95,46 @@ void runDaytimeUdp()
     }
 }
 
+void runDaytimeUdpAsync()
+{
+    pid_t pid = fork();
+
+    if (pid == 0) {
+		try
+		{
+		    boost::asio::io_service ioService;
+		    UdpServer server(ioService);
+		    ioService.run();
+		}
+		catch (std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+    } else {
+        pid_t pid = fork();
+
+        if (pid == 0) {
+        	DaytimeClientUdp *client = new DaytimeClientUdp(1);
+        	for (;;) {
+            	client->Execute((const std::string&)"127.0.1.1");
+        	}
+        } else {
+        	DaytimeClientUdp *client = new DaytimeClientUdp(2);
+        	for (;;) {
+            	client->Execute((const std::string&)"127.0.1.1");
+        	}
+        }
+    }
+}
+
 int main()
 {
 //	runTheTimers();
 //	runDaytimeTcp()
 //	runDaytimeTcpAsync();
+//	runDaytimeUdp();
 
-	runDaytimeUdp();
+	runDaytimeUdpAsync();
 
 	return 0;
 }

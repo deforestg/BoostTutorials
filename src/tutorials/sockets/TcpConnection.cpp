@@ -7,9 +7,6 @@
 
 #include "include/TcpConnection.h"
 
-using boost::asio::ip::tcp;
-
-
 std::string TcpConnection::makeDaytimeString()
 {
   using namespace std; // For time_t, time and ctime;
