@@ -15,6 +15,7 @@
 #include "tutorials/sockets/include/DaytimeClient.h"
 #include "tutorials/sockets/include/DaytimeClientUdp.h"
 #include "tutorials/sockets/include/DaytimeServerTcp.h"
+#include "tutorials/sockets/include/DaytimeServerUdp.h"
 #include "tutorials/sockets/include/TcpServer.h"
 
 void runTheTimers()
@@ -80,14 +81,26 @@ void runDaytimeTcpAsync()
     }
 }
 
+void runDaytimeUdp()
+{
+    pid_t pid = fork();
+
+    if (pid == 0) {
+    	DaytimeServerUdp *server = new DaytimeServerUdp();
+    	server->Start();
+    } else {
+    	DaytimeClientUdp *client = new DaytimeClientUdp();
+    	client->Execute((const std::string&)"127.0.1.1");
+    }
+}
+
 int main()
 {
 //	runTheTimers();
 //	runDaytimeTcp()
 //	runDaytimeTcpAsync();
 
-	DaytimeClientUdp *client = new DaytimeClientUdp();
-	client->Execute((const std::string&)"wwv.nist.gov");
+	runDaytimeUdp();
 
 	return 0;
 }

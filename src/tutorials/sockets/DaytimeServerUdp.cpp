@@ -1,7 +1,7 @@
 /*
  * DaytimeServerUdp.cpp
  *
- *  Created on: Aug 14, 2014
+ *  Created on: Aug 15, 2014
  *      Author: gdeforest
  */
 
@@ -9,7 +9,7 @@
 
 DaytimeServerUdp::DaytimeServerUdp()
 {
-	acceptor = new tcp::acceptor(ioService, tcp::endpoint(tcp::v4(), 13));
+	socket = new udp::socket(ioService, udp::endpoint(udp::v4(), 13));
 }
 
 std::string DaytimeServerUdp::makeDaytimeString()
@@ -23,13 +23,29 @@ void DaytimeServerUdp::Start()
 	try
 	{
 		for (;;) {
-			tcp::socket socket(ioService);
-			acceptor->accept(socket);
+			boost::array<char, 1> recv_buf;
+			udp::endpoint remote_endpoint;
+			boost::system::error_code error;
+			socket->receive_from(
+				boost::asio::buffer(recv_buf),
+				remote_endpoint,
+				0,
+				error
+			);
+
+			if (error && error != boost::asio::error::message_size) {
+				throw boost::system::system_error(error);
+			}
 
 			std::string message = makeDaytimeString();
 
 			boost::system::error_code ignored_error;
-			boost::asio::write(socket, boost::asio::buffer(message), ignored_error);
+			socket->send_to(
+				boost::asio::buffer(message),
+				remote_endpoint,
+				0,
+				ignored_error
+			);
 		}
 	}
 	catch (std::exception& e)

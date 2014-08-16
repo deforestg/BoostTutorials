@@ -11,7 +11,7 @@
 #include <boost/asio.hpp>
 
 using namespace std;
-using boost::asio::ip::tcp;
+using boost::asio::ip::udp;
 
 #ifndef DAYTIMESERVERUDP_H_
 #define DAYTIMESERVERUDP_H_
@@ -20,7 +20,7 @@ class DaytimeServerUdp
 {
 	private:
 		boost::asio::io_service ioService;
-		tcp::acceptor* acceptor;
+		udp::socket* socket;
 		std::string makeDaytimeString();
 	public:
 		DaytimeServerUdp();
