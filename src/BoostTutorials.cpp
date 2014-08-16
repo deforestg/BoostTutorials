@@ -127,14 +127,48 @@ void runDaytimeUdpAsync()
     }
 }
 
+void runDaytimeBothAsync()
+{
+    pid_t pid = fork();
+
+    if (pid == 0) {
+		try
+		{
+		    boost::asio::io_service ioService;
+		    TcpServer server1(ioService);
+		    UdpServer server(ioService);
+		    ioService.run();
+		}
+		catch (std::exception& e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+    } else {
+        pid_t pid = fork();
+
+        if (pid == 0) {
+        	DaytimeClientUdp *client = new DaytimeClientUdp(1);
+        	for (;;) {
+            	client->Execute((const std::string&)"127.0.1.1");
+        	}
+        } else {
+        	DaytimeClient *client = new DaytimeClient(2);
+        	for (;;) {
+            	client->Execute((const std::string&)"127.0.1.1");
+        	}
+        }
+    }
+}
+
 int main()
 {
 //	runTheTimers();
 //	runDaytimeTcp()
 //	runDaytimeTcpAsync();
 //	runDaytimeUdp();
+//	runDaytimeUdpAsync();
 
-	runDaytimeUdpAsync();
+	runDaytimeBothAsync();
 
 	return 0;
 }
